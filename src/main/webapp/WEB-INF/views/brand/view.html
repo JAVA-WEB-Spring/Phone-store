@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Detail</title>
+</head>
+<body>
+<a href="/brands">Back</a>
+<h1>View detail:<span th:text="${brand.name}"></span></h1>
+<table border="1">
+    <tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Price</th>
+    </tr>
+    <th:block th:each="product:${products}">
+        <td th:text="${product.code}"></td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.price}"></td>
+    </th:block>
+</table>
+
+</body>
+</html>

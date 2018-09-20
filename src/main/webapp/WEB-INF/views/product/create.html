@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+</head>
+<body>
+<a href="/products">Back product list</a>
+<th:block th:if="${message}">
+    <span th:text="${message}"></span>
+</th:block>
+<form th:action="@{create-product}" th:object="${productForm}" method="post" enctype="multipart/form-data">
+    <tr>
+        <label>Name</label>
+        <input type="text" th:field="*{name}">
+    </tr>
+    <tr>
+        <label>Price</label>
+        <input type="text" th:field="*{price}">
+    </tr>
+    <tr>
+        <label>Image</label>
+        <input type="file" th:field="*{image}" placeholder="Choose file to upload">
+    </tr>
+    <tr>
+        <label>Brand</label>
+        <select th:field="*{brand}">
+            <option th:each="b:${brands}" th:value="${b.id}"
+            th:text="${b.name}"></option>
+        </select>
+    </tr>
+    <tr>
+        <label>Categories</label>
+        <th:block th:each="c:${categories}">
+            <input type="checkbox"
+            th:field="${productForm.categories}"
+            th:value="${c.id}">
+            <label th:text="${c.name}"></label>
+        </th:block>
+    </tr>
+    <tr>
+        <td></td>
+        <td><input type="submit" value="Create"></td>
+    </tr>
+</form>
+</body>
+</html>

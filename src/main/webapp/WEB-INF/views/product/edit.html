@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+</head>
+<body>
+<a href="/products">Back</a>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<h1>Edit form</h1>
+<form th:object="${productForm}" th:action="@{/edit-product/__${productForm.id}__}" method="post"
+      enctype="multipart/form-data">
+    <table>
+        <tr>
+            <th>Name</th>
+            <td><input type="text" th:field="*{name}"></td>
+        </tr>
+        <tr>
+            <th>Price</th>
+            <td><input type="text" th:field="*{price}"></td>
+        </tr>
+        <tr>
+            <th>Image</th>
+            <td><input type="hidden" th:field="*{image}">
+                <img th:src="@{/features/__${productForm.imageUrl}__}" height="100" width="100">
+                <label><input type="file" th:field="*{image}" height="100" width="100"></label>
+            </td>
+        </tr>
+        <tr>
+            <th>Brand</th>
+            <td><select name="brand">
+                <option th:each="b:${brands}" th:value="${b.id}" th:text="${b.name}"
+                        th:selected="${b.id}==*{brand.id}"></option>
+            </select></td>
+        </tr>
+        <tr>
+            <th>Category</th>
+            <td>
+                <th:block th:each="c:${categories}">
+                    <input type="checkbox"
+                           th:checked="${#lists.contains(productForm.categories,c)}"
+                           name="categories"
+                           th:value="${c.id}">
+                    <label th:text="${c.name}"></label>
+                </th:block>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Edit"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
